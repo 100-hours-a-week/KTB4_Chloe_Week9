@@ -1,0 +1,317 @@
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #FF6F61;
+  --primary-hover: #E85A4F;
+  --primary-light: #FFE7E3;
+  --mint: #4ECDC4;
+  --bg: #FFF8F6;
+  --card-bg: #FFFFFF;
+  --text: #2D2A26;
+  --text-sub: #8C8681;
+  --border: #F0E0DC;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* =============================================
+   HEADER
+============================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 12px rgba(45, 42, 38, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 24px;
+}
+
+.site-title {
+  font-family: 'Sandoll GogoRound', 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  text-align: center;
+}
+
+.header-profile-wrap {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-profile-header {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  transition: box-shadow 0.2s;
+}
+
+.btn-profile-header:hover {
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--border);
+  display: block;
+  object-fit: cover;
+}
+
+/* ── 드롭다운 ── */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: var(--card-bg);
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  min-width: 150px;
+  box-shadow: 0 8px 24px rgba(45, 42, 38, 0.14);
+  flex-direction: column;
+  z-index: 200;
+}
+
+.dropdown-menu.active {
+  display: flex;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 13px 18px;
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.dropdown-item:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-hover);
+}
+
+/* =============================================
+   MAIN LAYOUT
+============================================= */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 80px;
+}
+
+/* =============================================
+   TOP AREA (인사글 + 버튼)
+============================================= */
+.top-area {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(45, 42, 38, 0.06);
+}
+
+.greeting {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--text-sub);
+}
+
+.greeting-bold {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.btn-write {
+  flex-shrink: 0;
+  padding: 11px 22px;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: inline-block;
+}
+
+.btn-write:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-write:active {
+  transform: scale(0.97);
+}
+
+/* =============================================
+   POST LIST
+============================================= */
+.post-list {
+  width: 100%;
+  max-width: 640px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =============================================
+   POST CARD
+============================================= */
+.post-card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(45, 42, 38, 0.06);
+  border-left: 4px solid var(--primary);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(45, 42, 38, 0.12);
+}
+
+.post-top {
+  margin-bottom: 4px;
+}
+
+.post-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  letter-spacing: -0.3px;
+  color: var(--text);
+}
+
+.post-meta {
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.meta-date {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-sub);
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  margin-top: 4px;
+  border-top: 1px solid var(--bg);
+}
+
+.meta-stats {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mint);
+}
+
+.stat-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--mint);
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.author-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--border);
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* 더 이상 사용하지 않음 */
+.post-divider {
+  display: none;
+}
+
+/* =============================================
+   LIST STATE MESSAGES
+============================================= */
+#postLoading,
+#postEmpty,
+#postError {
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+.scrolerFooter {
+  width: 100%;
+  height: 1px;
+}
