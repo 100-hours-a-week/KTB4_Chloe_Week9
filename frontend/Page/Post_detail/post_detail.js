@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
   viewCount.textContent = formatCount(result.data.post.view_count);
-  commentCount.textContent = formatCount(result.data.post.comment_count);
   likeCount.textContent = formatCount(result.data.post.like_count);
  
   document.getElementById('commentCountHeading').textContent = result.data.post.comment_count;
