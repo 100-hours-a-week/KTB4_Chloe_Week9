@@ -31,66 +31,192 @@ a {
 }
 
 /* =============================================
-   HEADER
+   APP LAYOUT (사이드바 + 콘텐츠)
 ============================================= */
-.site-header {
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* =============================================
+   SIDEBAR (펼침)
+============================================= */
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
   position: sticky;
   top: 0;
-  z-index: 100;
-  background-color: var(--card-bg);
-  box-shadow: 0 2px 12px rgba(45, 42, 38, 0.06);
+  height: 100vh;
+}
+
+.sidebar.collapsed {
+  display: none;
+}
+
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.sidebar-logo {
+  font-family: 'Sandoll GogoRound', 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--primary);
+  letter-spacing: -0.3px;
+}
+
+.btn-sidebar-toggle {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px 24px;
+  color: var(--text-sub);
+  font-size: 16px;
+  transition: background-color 0.15s;
 }
 
-.site-title {
-  font-family: 'Sandoll GogoRound', 'Pretendard', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  letter-spacing: -0.5px;
+.btn-sidebar-toggle:hover {
+  background-color: var(--bg);
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;   /* 아이콘-텍스트 간격 */
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-sub);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.sidebar-menu-item:hover {
+  background-color: var(--bg);
   color: var(--text);
-  text-align: center;
 }
 
-.header-profile-wrap {
-  position: absolute;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
+.sidebar-menu-item.active {
+  background-color: var(--primary);
+  color: #ffffff;
 }
 
+.sidebar-profile {
+  position: relative;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+
+
+.menu-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--text-sub);
+}
+
+.sidebar-menu-item.active .menu-icon,
+.sidebar-menu-item:hover .menu-icon {
+  color: currentColor;   /* 부모의 text color(흰색/진한색)를 그대로 따라감 */
+}
+
+/* =============================================
+   COLLAPSED TOPBAR (접힘 상태)
+============================================= */
+/* collapsed-topbar 기본 규칙에서 display 제거하고,
+   hidden이 아닐 때만 flex가 되도록 변경 */
+/* =============================================
+   CONTENT AREA (접힘바 + 본문 세로 컨테이너)
+============================================= */
+.content-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =============================================
+   COLLAPSED TOPBAR (가로 바로 변경)
+============================================= */
+.collapsed-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  height: 52px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+}
+
+.collapsed-topbar:not([hidden]) {
+  display: flex;
+}
+
+.collapsed-logo {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--primary);
+  letter-spacing: -0.3px;
+  /* writing-mode 관련 속성 전부 제거 */
+}
+
+/* =============================================
+   HEADER PROFILE (사이드바 내부)
+============================================= */
 .btn-profile-header {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border: none;
   background: transparent;
   cursor: pointer;
   padding: 0;
   border-radius: 50%;
-  transition: box-shadow 0.2s;
-}
-
-.btn-profile-header:hover {
-  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 .profile-icon {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background-color: var(--border);
   display: block;
   object-fit: cover;
 }
 
-/* ── 드롭다운 ── */
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
+  bottom: calc(100% + 8px);
+  left: 0;
   background-color: var(--card-bg);
   border: none;
   border-radius: 12px;
@@ -128,6 +254,8 @@ a {
    MAIN LAYOUT
 ============================================= */
 .main-content {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,16 +301,12 @@ a {
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease;
   display: inline-block;
 }
 
 .btn-write:hover {
   background-color: var(--primary-hover);
-}
-
-.btn-write:active {
-  transform: scale(0.97);
 }
 
 /* =============================================
@@ -198,15 +322,12 @@ a {
 }
 
 /* =============================================
-   POST CARD
+   POST CARD (이미지 썸네일 포함)
 ============================================= */
 .post-card {
   background-color: var(--card-bg);
   border-radius: 16px;
-  padding: 22px 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  padding: 18px 20px;
   cursor: pointer;
   box-shadow: 0 3px 12px rgba(45, 42, 38, 0.06);
   border-left: 4px solid var(--primary);
@@ -218,58 +339,73 @@ a {
   box-shadow: 0 10px 24px rgba(45, 42, 38, 0.12);
 }
 
-.post-top {
-  margin-bottom: 4px;
+.post-card-inner {
+  display: flex;
+  align-items: center;   /* 추가: 썸네일을 세로 중앙 정렬 */
+  gap: 14px;
+}
+
+.post-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  background-color: var(--border);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.post-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .post-title {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 130%;
-  letter-spacing: -0.3px;
   color: var(--text);
-}
-
-.post-meta {
-  margin-top: 6px;
-  margin-bottom: 4px;
-}
-
-.meta-date {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-sub);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .post-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 14px;
-  margin-top: 4px;
-  border-top: 1px solid var(--bg);
 }
 
 .meta-stats {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .stat-item {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--mint);
 }
 
 .stat-icon {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
-  color: var(--mint);
+}
+
+.post-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--bg);
 }
 
 .post-author {
@@ -279,8 +415,8 @@ a {
 }
 
 .author-avatar {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background-color: var(--border);
   flex-shrink: 0;
@@ -288,13 +424,14 @@ a {
 
 .author-name {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-sub);
 }
 
-/* 더 이상 사용하지 않음 */
-.post-divider {
-  display: none;
+.meta-date {
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--text-sub);
 }
 
 /* =============================================

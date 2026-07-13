@@ -9,38 +9,82 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <h1 class="site-title">아무 말 대잔치</h1>
-    <div class="header-profile-wrap">
-      <button class="btn-profile-header" id="profileMenuBtn">
-        <img class="profile-icon" src="" alt="프로필" id="headerProfileIcon" />
-      </button>
-      <!-- 드롭다운 메뉴 -->
-      <div class="dropdown-menu" id="dropdownMenu">
-        <a href="../Profile_edit/profile_edit.html" class="dropdown-item">회원정보수정</a>
-        <a href="../Password_edit/password_edit.html" class="dropdown-item">비밀번호수정</a>
-        <button class="dropdown-item" id="logoutBtn">로그아웃</button>
+  <div class="app-layout">
+
+    <!-- SIDEBAR (펼침 상태) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <span class="sidebar-logo">FitMate</span>
+        <button class="btn-sidebar-toggle" id="sidebarCollapseBtn" aria-label="사이드바 접기">
+          <span class="icon-chevron-left">‹</span>
+        </button>
       </div>
+
+      <nav class="sidebar-menu">
+        <a href="../Board/board.html" class="sidebar-menu-item active">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          전체 게시글
+        </a>
+        <button class="sidebar-menu-item" type="button">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2s4 4.5 4 8.5a4 4 0 0 1-8 0C8 6.5 12 2 12 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 14c0 4 2 8 4 8s4-4 4-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          인기글
+        </button>
+        <button class="sidebar-menu-item" type="button">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          내 활동
+        </button>
+        <button class="sidebar-menu-item" type="button">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 20a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          알림
+        </button>
+      </nav>
+
+      <div class="sidebar-profile">
+        <button class="btn-profile-header" id="profileMenuBtn">
+          <img class="profile-icon" src="" alt="프로필" id="headerProfileIcon" />
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="../Profile_edit/profile_edit.html" class="dropdown-item">회원정보수정</a>
+          <a href="../Password_edit/password_edit.html" class="dropdown-item">비밀번호수정</a>
+          <button class="dropdown-item" id="logoutBtn">로그아웃</button>
+        </div>
+      </div>
+    </aside>
+
+
+  <!-- 콘텐츠 영역 (접힘 상단바 + 본문을 세로로 묶음) -->
+  <div class="content-area">
+
+        <!-- SIDEBAR (접힘 상태에서 보이는 상단 바) -->
+    <div class="collapsed-topbar" id="collapsedTopbar" hidden>
+      <button class="btn-sidebar-toggle" id="sidebarExpandBtn" aria-label="사이드바 펼치기">
+        <span class="icon-chevron-right">›</span>
+      </button>
+      <span class="collapsed-logo">FitMate</span>
     </div>
-  </header>
 
-  <!-- MAIN -->
-  <main class="main-content">
 
-    <!-- 인사글 + 게시글 작성 버튼 -->
-    <div class="top-area">
-      <p class="greeting">안녕하세요,<br />아무 말 대잔치 <strong class="greeting-bold">게시판</strong> 입니다.</p>
-      <a href="../Post_write/post_write.html" class="btn-write">게시글 작성</a>
-    </div>
+    <!-- MAIN -->
+    <main class="main-content">
 
-    <!-- 게시글 목록 -->
-    <ul class="post-list"></ul>
-      <p id="postLoading" hidden>게시글을 불러오는 중입니다.</p>
-      <p id="postEmpty" hidden>등록된 게시글이 없습니다.</p>
-      <p id="postError" hidden>게시글을 불러오지 못했습니다.</p>  
-     <div class="scrolerFooter" id ="sentinel"></div>
-  </main>
+
+
+      <!-- 인사글 + 게시글 작성 버튼 -->
+      <div class="top-area">
+        <p class="greeting">안녕하세요,<br />아무 말 대잔치 <strong class="greeting-bold">게시판</strong> 입니다.</p>
+        <a href="../Post_write/post_write.html" class="btn-write">게시글 작성</a>
+      </div>
+
+      <!-- 게시글 목록 -->
+      <ul class="post-list"></ul>
+        <p id="postLoading" hidden>게시글을 불러오는 중입니다.</p>
+        <p id="postEmpty" hidden>등록된 게시글이 없습니다.</p>
+        <p id="postError" hidden>게시글을 불러오지 못했습니다.</p>
+      <div class="scrolerFooter" id="sentinel"></div>
+    </main>
+  </div>
+
+  </div>
 
   <script type="module" src="board.js"></script>
 </body>

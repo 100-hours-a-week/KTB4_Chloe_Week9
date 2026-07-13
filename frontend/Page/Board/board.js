@@ -10,6 +10,12 @@ const postLoading = document.getElementById("postLoading");
 const postEmpty = document.getElementById("postEmpty");
 const postError = document.getElementById("postError");
 
+
+const sidebar = document.getElementById('sidebar');
+const collapsedTopbar = document.getElementById('collapsedTopbar');
+const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
+const sidebarExpandBtn = document.getElementById('sidebarExpandBtn');
+
 profileMenuBtn.addEventListener('click', function() {
   dropdownMenu.classList.toggle('active');
 });
@@ -120,25 +126,27 @@ function renderPostList(posts) {
     const li = document.createElement('li');
     li.className = 'post-card';
 
-    const postTop = document.createElement('div');
-    postTop.className = 'post-top';
+    // 카드 내부 wrapper (썸네일 + 본문 가로 배치)
+    const postCardInner = document.createElement('div');
+    postCardInner.className = 'post-card-inner';
+
+    // 썸네일: 이미지가 있는 게시글만 생성
+    if (post.post_image) {
+      const postThumb = document.createElement('img');
+      postThumb.className = 'post-thumb';
+      postThumb.src = `https://picsum.photos/200`;
+      postThumb.alt = '';
+      postCardInner.appendChild(postThumb);
+    }
+
+    // 본문 영역 (제목 + 통계 + 하단 작성자/날짜)
+    const postMain = document.createElement('div');
+    postMain.className = 'post-main';
 
     const postTitle = document.createElement('h2');
     postTitle.className = 'post-title';
     postTitle.setAttribute('max-length', '26');
     postTitle.textContent = post.title;
-
-    postTop.appendChild(postTitle);
-
-    // 날짜만 담는 meta 영역
-    const postMeta = document.createElement('div');
-    postMeta.className = 'post-meta';
-
-    const metaDate = document.createElement('span');
-    metaDate.className = 'meta-date';
-    metaDate.textContent = formatDateTime(post.datewritten);
-
-    postMeta.appendChild(metaDate);
 
     // 좋아요/댓글/조회수 (아이콘 + 숫자)
     const metaStats = document.createElement('div');
@@ -160,21 +168,40 @@ function renderPostList(posts) {
     postAuthor.appendChild(authorAvatar);
     postAuthor.appendChild(authorName);
 
-    // 하단 영역: stats ↔ author, 양끝 정렬
-    const postFooter = document.createElement('div');
-    postFooter.className = 'post-footer';
-    postFooter.appendChild(metaStats);
-    postFooter.appendChild(postAuthor);
+    const metaDate = document.createElement('span');
+    metaDate.className = 'meta-date';
+    metaDate.textContent = formatDateTime(post.datewritten);
+
+    // 하단 줄: 작성자 ↔ 날짜, 양끝 정렬
+    const postBottomRow = document.createElement('div');
+    postBottomRow.className = 'post-bottom-row';
+    postBottomRow.appendChild(postAuthor);
+    postBottomRow.appendChild(metaDate);
+
+    postMain.appendChild(postTitle);
+    postMain.appendChild(metaStats);
+    postMain.appendChild(postBottomRow);
+
+    postCardInner.appendChild(postMain);
 
     const postLink = document.createElement('a');
     postLink.href = `../Post_detail/post_detail.html?postId=${post.post_id}`;
-
-    postLink.appendChild(postTop);
-    postLink.appendChild(postMeta);
-    postLink.appendChild(postFooter);
+    postLink.appendChild(postCardInner);
 
     li.appendChild(postLink);
 
     postList.appendChild(li);
   });
 }
+
+
+
+sidebarCollapseBtn.addEventListener('click', function () {
+  sidebar.classList.add('collapsed');
+  collapsedTopbar.hidden = false;
+});
+
+sidebarExpandBtn.addEventListener('click', function () {
+  sidebar.classList.remove('collapsed');
+  collapsedTopbar.hidden = true;
+});

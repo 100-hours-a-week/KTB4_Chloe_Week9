@@ -12,7 +12,7 @@ public class FileStorage implements FileStorageService {
     @Override
     public String fileStore(MultipartFile file) {
         if (file != null && !file.isEmpty()) {
-            String uploadDir = "src/main/resources/static/UploadPhoto/ProfileImage";
+            String uploadDir = "backend/src/main/resources/static/UploadPhoto/ProfileImage";
             Path directoryPath = Paths.get(uploadDir).toAbsolutePath();
             Path savePath = directoryPath.resolve(file.getOriginalFilename());
             try {

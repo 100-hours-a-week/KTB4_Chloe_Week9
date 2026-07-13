@@ -32,92 +32,177 @@ body.modal-open {
   overflow: hidden;
 }
 
-/* =============================================
-   HEADER
-============================================= */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: var(--card-bg);
-  box-shadow: 0 2px 12px rgba(45, 42, 38, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 24px;
+a {
+  text-decoration: none;
 }
 
-.btn-back {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
+/* =============================================
+   APP LAYOUT (사이드바 + 콘텐츠)
+============================================= */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar.collapsed {
+  display: none;
+}
+
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.sidebar-logo {
+  font-family: 'Sandoll GogoRound', 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--primary);
+  letter-spacing: -0.3px;
+}
+
+.btn-sidebar-toggle {
+  width: 28px;
+  height: 28px;
   border: none;
-  background: var(--bg);
+  background: transparent;
   border-radius: 50%;
-  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--text-sub);
+  font-size: 16px;
+  transition: background-color 0.15s;
+}
+
+.btn-sidebar-toggle:hover {
+  background-color: var(--bg);
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-sub);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.sidebar-menu-item:hover {
+  background-color: var(--bg);
   color: var(--text);
-  line-height: 1;
-  transition: background-color 0.2s, color 0.2s;
 }
 
-.btn-back:hover {
-  background-color: var(--primary-light);
-  color: var(--primary);
+.sidebar-menu-item.active {
+  background-color: var(--primary);
+  color: #ffffff;
 }
 
-.site-title {
-  font-family: 'Sandoll GogoRound', 'Pretendard', sans-serif;
+.menu-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--text-sub);
+}
+
+.sidebar-menu-item.active .menu-icon,
+.sidebar-menu-item:hover .menu-icon {
+  color: currentColor;
+}
+
+.sidebar-profile {
+  position: relative;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+.content-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsed-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  height: 52px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+}
+
+.collapsed-topbar:not([hidden]) {
+  display: flex;
+}
+
+.collapsed-logo {
   font-weight: 700;
-  font-size: 24px;
-  letter-spacing: -0.5px;
-  color: var(--text);
-  text-align: center;
-}
-
-.header-profile-wrap {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--primary);
+  letter-spacing: -0.3px;
 }
 
 .btn-profile-header {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border: none;
   background: transparent;
   cursor: pointer;
   padding: 0;
   border-radius: 50%;
-  transition: box-shadow 0.2s;
-}
-
-.btn-profile-header:hover {
-  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 .profile-icon {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background-color: var(--border);
   display: block;
   object-fit: cover;
 }
 
-/* ── 드롭다운 ── */
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
+  bottom: calc(100% + 8px);
+  left: 0;
   background-color: var(--card-bg);
   border: none;
   border-radius: 12px;
@@ -155,6 +240,8 @@ body.modal-open {
    MAIN LAYOUT
 ============================================= */
 .main-content {
+  flex: 1;
+  min-width: 0;
   display: flex;
   justify-content: center;
   padding: 40px 20px 100px;
@@ -166,85 +253,66 @@ body.modal-open {
   background-color: var(--card-bg);
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(45, 42, 38, 0.06);
-  padding: 36px 36px 40px;
+  padding: 32px 36px 40px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-/* =============================================
-   POST HEADER
-============================================= */
-.post-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   gap: 16px;
 }
 
-.post-header-left {
+/* =============================================
+   TOP ROW (뒤로가기 ↔ 조회수/수정/삭제)
+============================================= */
+.post-top-row {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
-.post-title {
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 130%;
-  letter-spacing: -0.3px;
-  color: var(--text);
-}
-
-.post-author-row {
+.btn-back-inline {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.author-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: var(--border);
-  flex-shrink: 0;
-}
-
-.author-name {
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--text);
-}
-
-.post-date {
-  font-weight: 400;
+  gap: 4px;
+  border: none;
+  background: transparent;
   font-size: 13px;
   color: var(--text-sub);
+  cursor: pointer;
+  padding: 0;
 }
 
-.post-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  row-gap: 18px;
-  flex-shrink: 0;
+.btn-back-inline:hover {
+  color: var(--primary);
 }
 
-.post-actions-top {
+.post-top-right {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
 }
 
-.post-actions-bottom {
+.view-count-inline {
   display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mint);
+  margin-right: 4px;
+}
+
+.icon-eye {
+  width: 15px;
+  height: 15px;
 }
 
 .btn-action {
-  padding: 7px 14px;
+  padding: 6px 12px;
   border: 1.5px solid var(--border);
   border-radius: 8px;
   background: transparent;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-sub);
   cursor: pointer;
@@ -263,10 +331,129 @@ body.modal-open {
   color: var(--danger);
 }
 
-.post-report-wrap {
+/* =============================================
+   POST TITLE / AUTHOR
+============================================= */
+.post-title {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 130%;
+  letter-spacing: -0.3px;
+  color: var(--text);
+}
+
+.post-author-row {
   display: flex;
-  justify-content: flex-end;
-  padding-top: 20px;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--border);
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.post-date {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+/* =============================================
+   POST IMAGE (축소된 삽입형)
+============================================= */
+.post-image-wrap {
+  width: 100%;
+}
+
+.post-image-placeholder {
+  width: 100%;
+  height: 140px;
+  background-color: var(--border);
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+/* =============================================
+   POST BODY
+============================================= */
+.post-body p {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 165%;
+  color: var(--text);
+}
+
+/* =============================================
+   LIKE ROW (하트 좋아요 ↔ 신고)
+============================================= */
+.post-like-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-like-heart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.icon-heart {
+  width: 23px;
+  height: 23px;
+  color: var(--text-sub);
+  transition: color 0.2s, transform 0.15s;
+}
+
+.btn-like-heart #likeCount {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-sub);
+  transition: color 0.2s;
+}
+
+.btn-like-heart:hover .icon-heart {
+  transform: scale(1.08);
+}
+
+.btn-like-heart.liked .icon-heart {
+  color: var(--primary);
+  fill: var(--primary);
+}
+
+.btn-like-heart.liked #likeCount {
+  color: var(--primary);
+}
+
+.btn-report-inline {
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  color: var(--text-sub);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.btn-report-inline:hover {
+  background-color: var(--danger-light);
+  color: var(--danger);
 }
 
 /* =============================================
@@ -279,98 +466,11 @@ body.modal-open {
 }
 
 /* =============================================
-   POST IMAGE
-============================================= */
-.post-image-wrap {
-  width: 100%;
-}
-
-.post-image-placeholder {
-  width: 100%;
-  height: 100%;
-  background-color: var(--border);
-  border-radius: 14px;
-  object-fit: cover;
-}
-
-/* =============================================
-   POST BODY
-============================================= */
-.post-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.post-body p {
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 165%;
-  letter-spacing: 0;
-  color: var(--text);
-}
-
-/* =============================================
-   POST STATS
-============================================= */
-.post-stats {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.stat-btn,
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  width: 96px;
-  height: 72px;
-  border-radius: 14px;
-  background-color: var(--bg);
-  border: none;
-  cursor: default;
-  transition: background-color 0.2s;
-}
-
-.stat-btn {
-  cursor: pointer;
-}
-
-.stat-btn:hover {
-  background-color: var(--primary-light);
-}
-
-.stat-btn.liked {
-  background-color: var(--primary);
-}
-
-.stat-btn.liked .stat-num,
-.stat-btn.liked .stat-label {
-  color: #ffffff;
-}
-
-.stat-num {
-  font-weight: 700;
-  font-size: 19px;
-  color: var(--text);
-}
-
-.stat-label {
-  font-weight: 500;
-  font-size: 12px;
-  color: var(--text-sub);
-}
-
-/* =============================================
    COMMENT INPUT
 ============================================= */
 .comment-input-area {
   display: flex;
   flex-direction: column;
-  gap: 0;
   background-color: var(--card-bg);
   border: 1.5px solid var(--border);
   border-radius: 14px;
@@ -385,7 +485,7 @@ body.modal-open {
 
 .comment-textarea {
   width: 100%;
-  height: 100px;
+  height: 90px;
   padding: 14px 16px;
   border: none;
   font-size: 14px;
@@ -426,6 +526,19 @@ body.modal-open {
 
 .btn-comment-submit.active:hover {
   background-color: var(--primary-hover);
+}
+
+/* =============================================
+   COMMENT COUNT HEADING
+============================================= */
+.comment-count-heading {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.comment-count-heading span {
+  color: var(--primary);
 }
 
 /* =============================================
@@ -508,5 +621,4 @@ body.modal-open {
   font-size: 14px;
   line-height: 150%;
   color: var(--text);
-  padding-left: 0;
 }

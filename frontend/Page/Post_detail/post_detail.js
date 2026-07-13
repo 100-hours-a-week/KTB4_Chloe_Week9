@@ -10,8 +10,7 @@ const postDate = document.querySelector('.post-date');
 const postImagePlaceholder = document.querySelector('.post-image-placeholder');
 const postBody = document.querySelector('.post-body');
 
-const viewCount = document.querySelectorAll('.stat-num')[1];
-const commentCount = document.querySelectorAll('.stat-num')[2];
+const viewCount = document.getElementById('viewCountNum');
 
 const postEditBtn = document.getElementById('postEditBtn');
 
@@ -129,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   commentCount.textContent = formatCount(result.data.post.comment_count);
   likeCount.textContent = formatCount(result.data.post.like_count);
  
+  document.getElementById('commentCountHeading').textContent = result.data.post.comment_count;
 
   result.data.comments.forEach((comment) => {
     commentList.appendChild(createCommentElement(comment));
@@ -350,4 +350,20 @@ postReportBtn.addEventListener('click', async function() {
   } catch (error) {
     console.error(error);
   }
+});
+
+
+const sidebar = document.getElementById('sidebar');
+const collapsedTopbar = document.getElementById('collapsedTopbar');
+const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
+const sidebarExpandBtn = document.getElementById('sidebarExpandBtn');
+
+sidebarCollapseBtn.addEventListener('click', function () {
+  sidebar.classList.add('collapsed');
+  collapsedTopbar.hidden = false;
+});
+
+sidebarExpandBtn.addEventListener('click', function () {
+  sidebar.classList.remove('collapsed');
+  collapsedTopbar.hidden = true;
 });
