@@ -10,3 +10,7 @@ spring:
   logging:
     level:
       org.hibernate.orm.jdbc.bind: trace
+
+  file:
+    profile-upload-dir: /Users/seoyewon/dev-uploads/ProfileImage
+    post-upload-dir: /Users/seoyewon/dev-uploads/PostImage

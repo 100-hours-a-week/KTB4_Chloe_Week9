@@ -5,5 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileStorageService {
 
-    String fileStore(MultipartFile image);
+    String storeProfileImage(MultipartFile image);
+
+    String storePostImage(MultipartFile file);
 }

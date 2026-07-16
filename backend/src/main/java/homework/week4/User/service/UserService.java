@@ -49,7 +49,7 @@ public class UserService {
 
         LocalDateTime createdDateTime = LocalDateTime.now();
 
-        String profileImagePath = fileStorageService.fileStore(request.getProfile_image());
+        String profileImagePath = fileStorageService.storeProfileImage(request.getProfile_image());
 
         String HashPassword = passwordEncoder.encode(request.getPassword());
 
@@ -132,7 +132,7 @@ public class UserService {
 
 
         if(request.getProfileImage() != null && !request.getProfileImage().isEmpty()){
-            String profileImagePath = fileStorageService.fileStore(request.getProfileImage());
+            String profileImagePath = fileStorageService.storeProfileImage(request.getProfileImage());
             user.changeProfileImage(profileImagePath);
         }
 

@@ -52,7 +52,7 @@ public class PostService {
         User writer = userService.getValidUser(userId);
         LocalDateTime createdDateTime = LocalDateTime.now();
 
-        String postImagePath = fileStorageService.fileStore(request.getPostImage());
+        String postImagePath = fileStorageService.storePostImage(request.getPostImage());
 
         Post post = new Post(
                 request.getTitle(),
@@ -173,7 +173,7 @@ public class PostService {
         changeRepository.save(postChangeHistory);
 
         //게시글 이미지 저장
-        String postImagePath = fileStorageService.fileStore(request.getPostImage());
+        String postImagePath = fileStorageService.storePostImage(request.getPostImage());
 
         //게시글 수정
         post.modifyPost(

@@ -83,7 +83,7 @@ public class UserServiceTest {
         given(userRepository.existsByEmail("chloe@test.com")).willReturn(false);
         given(userRepository.existsByNickname("chloe")).willReturn(false);
         given(passwordEncoder.encode("Chloe1234**")).willReturn("encodedPassword");
-        given(fileStorageService.fileStore(profileImage)).willReturn("/UploadPhoto/ProfileImage/profile.jpg");
+        given(fileStorageService.storeProfileImage(profileImage)).willReturn("/UploadPhoto/ProfileImage/profile.jpg");
 
         //실행
         userService.createUser(MocksignUprequest);
@@ -113,7 +113,7 @@ public class UserServiceTest {
                 profileImage
         );
 
-        given(fileStorageService.fileStore(any(MultipartFile.class)))
+        given(fileStorageService.storeProfileImage(any(MultipartFile.class)))
                 .willThrow(new RuntimeException("파일 저장 실패"));
 
         // 검증 및 검증
@@ -201,7 +201,7 @@ public class UserServiceTest {
 
         given(userRepository.findByuserIdAndIsMemberTrue(userId))
                 .willReturn(Optional.of(testUser));
-        given(fileStorageService.fileStore(profileImage)).willReturn("/UploadPhoto/ProfileImage/profile.jpg");
+        given(fileStorageService.storeProfileImage(profileImage)).willReturn("/UploadPhoto/ProfileImage/profile.jpg");
 
         //실행
         UserChangeResponseDto result = userService.changeUser(userId,request);
@@ -228,7 +228,7 @@ public class UserServiceTest {
         given(userRepository.findByuserIdAndIsMemberTrue(userId))
                 .willReturn(Optional.of(testUser));
 
-        given(fileStorageService.fileStore(any(MultipartFile.class)))
+        given(fileStorageService.storeProfileImage(any(MultipartFile.class)))
                 .willThrow(new RuntimeException("파일 저장 실패"));
 
         // 검증 및 검증
