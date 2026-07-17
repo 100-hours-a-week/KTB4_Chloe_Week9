@@ -137,11 +137,16 @@ document.addEventListener('DOMContentLoaded', async function () {
   } else {
     postImagePlaceholder.style.display = 'none';
   }
+
+  if (!result.data.post.isOwner) {
+    postEditBtn.style.display = 'none';
+    postDeleteBtn.style.display = 'none';
+  }
  
-    if(result.data.is_liked){
-      isLiked = true;
-      likeBtn.classList.add('liked');
-    }
+  if(result.data.is_liked){
+    isLiked = true;
+    likeBtn.classList.add('liked');
+  }
 
   viewCount.textContent = formatCount(result.data.post.view_count);
   likeCount.textContent = formatCount(result.data.post.like_count);
