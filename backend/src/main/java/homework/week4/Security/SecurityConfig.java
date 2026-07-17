@@ -54,6 +54,8 @@ public class SecurityConfig {
 
                 //URL 패턴별로 접근 권한 설정
                 .authorizeHttpRequests(auth -> auth
+                        //이미지 요청 허용
+                        .requestMatchers("/images/**").permitAll()
                         //회원가입,로그인은 허용
                         .requestMatchers("/users/signup","/auth/**").permitAll()
                         .anyRequest().hasRole("USER")
