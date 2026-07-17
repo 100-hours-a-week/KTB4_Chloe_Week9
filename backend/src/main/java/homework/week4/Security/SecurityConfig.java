@@ -40,8 +40,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
 
-        //CSRF 비활성화
+                //CSRF 비활성화
                 .csrf(csrf -> csrf.disable())
+                //h2 DB 확인을 위해서..
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
 
                 //폼 로그인, Basic 인증 비활성화
                 .formLogin(form -> form.disable())
@@ -54,6 +56,7 @@ public class SecurityConfig {
 
                 //URL 패턴별로 접근 권한 설정
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**").permitAll()
                         //이미지 요청 허용
                         .requestMatchers("/images/**").permitAll()
                         //회원가입,로그인은 허용

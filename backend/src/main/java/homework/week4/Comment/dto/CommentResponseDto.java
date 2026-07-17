@@ -13,7 +13,7 @@ public class CommentResponseDto {
 
     private Long commentId;
     private String commenter;
-    private String profieImage;
+    private String profileImage;
     private String commentContent;
     private LocalDateTime commentDateWritten;
     private Boolean isBlinded;

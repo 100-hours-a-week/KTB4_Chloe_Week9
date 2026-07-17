@@ -173,7 +173,12 @@ public class PostService {
         changeRepository.save(postChangeHistory);
 
         //게시글 이미지 저장
-        String postImagePath = fileStorageService.storePostImage(request.getPostImage());
+        String postImagePath;
+        if (request.getPostImage() != null && !request.getPostImage().isEmpty()) {
+            postImagePath = fileStorageService.storePostImage(request.getPostImage());
+        } else {
+            postImagePath = post.getPostImage(); // 기존 값 그대로 유지
+        }
 
         //게시글 수정
         post.modifyPost(

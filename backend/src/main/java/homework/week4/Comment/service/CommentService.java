@@ -188,7 +188,7 @@ public class CommentService {
         post.commentCountDecrement();
 
 
-        return new CommentDeleteResponseDto(comment.getIsBlinded());
+        return new CommentDeleteResponseDto(comment.getIsBlinded(),post.getCommentCount());
     }
 
 
